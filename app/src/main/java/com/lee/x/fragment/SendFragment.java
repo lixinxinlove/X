@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.lee.x.R;
@@ -21,6 +23,8 @@ public class SendFragment extends BaseFragment {
 
     WebView webView;
 
+    Button btn;
+
     @Override
     protected int getResLayout() {
         return R.layout.send_fragment;
@@ -28,11 +32,25 @@ public class SendFragment extends BaseFragment {
 
     @Override
     protected void findView() {
+
+        btn = (Button) rootView.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.loadUrl("javascript:lee1('lee+lee')");
+            }
+        });
+
+
         webView = (WebView) rootView.findViewById(R.id.wv);
         webView.getSettings().setJavaScriptEnabled(true); ///------- 设置javascript 可用
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setDatabaseEnabled(true);
+        webView.getSettings().setLoadsImagesAutomatically(true);
         JavaScriptInterface JSInterface = new JavaScriptInterface(getActivity()); ////------
         webView.addJavascriptInterface(JSInterface, "JSInterface"); // 设置js接口  第一个参数事件接口实例，第二个是实例在js中的别名，这个在js中会用到
-
     }
 
     @Override
@@ -96,8 +114,6 @@ public class SendFragment extends BaseFragment {
         });
 
         webView.loadUrl("file:///android_asset/index.html");
-
-
     }
 
 
@@ -111,7 +127,7 @@ public class SendFragment extends BaseFragment {
         @JavascriptInterface
         public void jsfun(String name) {
 
-            Toast.makeText(mContext, name+"js", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, name + "js", Toast.LENGTH_LONG).show();
 
         }
     }

@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RxActivity"></activity>
+        <activity android:name=".activity.EventFeedbackActivity"></activity>
     </application>
+
+
+
 
 </manifest>

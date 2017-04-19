@@ -14,7 +14,6 @@ public class DbUtils {
 
     public void openDB() {
 
-
         File file = new File("/data/data/com.lee.x/databases");
         if (file.exists()) {
             db = SQLiteDatabase.openOrCreateDatabase("/data/data/com.lee.x/databases/stu.db", null);
@@ -24,11 +23,15 @@ public class DbUtils {
         }
     }
 
-
     public void createTable() {
+
+
         String stu_table = "create table user(id integer primary key autoincrement,name text,number text)";
         //执行SQL语句
         db.execSQL(stu_table);
+
+
+
     }
 
     public void insent() {
@@ -39,27 +42,17 @@ public class DbUtils {
     }
 
     public String select() {
-
         String str = "";
-
         Cursor cursor = db.query("user", null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.move(i);
-                int id = cursor.getInt(0);
-                String username = cursor.getString(1);
-                String password = cursor.getString(2);
-
-                str += username;
-                str += password;
-            }
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String username = cursor.getString(1);
+            String password = cursor.getString(2);
+            str += username;
+            str += password;
         }
-
         cursor.close();
         db.close();
-
         return str;
     }
-
 }

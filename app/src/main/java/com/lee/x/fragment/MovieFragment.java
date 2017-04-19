@@ -1,5 +1,6 @@
 package com.lee.x.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.lee.x.R;
+import com.lee.x.activity.EventFeedbackActivity;
 import com.lee.x.adapter.MovieAdapter;
 import com.lee.x.http.ApiManager;
 import com.lee.x.http.data.MovieResponse;
@@ -117,6 +119,9 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
             @Override
             public void run() {
                 refreshLayout.setRefreshing(false);
+
+                startActivity(new Intent(getActivity(), EventFeedbackActivity.class));
+
             }
         }, 3000);
     }
