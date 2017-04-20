@@ -245,7 +245,7 @@ public class KeyPairGenUtil {
      * @return
      * @throws IOException
      */
-    public String getPriveteKeyString() throws IOException {
+    public String getPriveteKeyString() {
 
         return "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAKfhRBakXl8YXReL" +
                 "9WrNOfpadPuFgRqjoILrXvMpuu3YM5QPnl0TQAVx7EH8RgIlJ1oQEpvX6+c7+K0s" +
@@ -270,7 +270,7 @@ public class KeyPairGenUtil {
      * @return
      * @throws IOException
      */
-    public String getPublicKeyString() throws IOException {
+    public String getPublicKeyString() {
 
         return "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCn4UQWpF5fGF0Xi/VqzTn6WnT7" +
                 "hYEao6CC617zKbrt2DOUD55dE0AFcexB/EYCJSdaEBKb1+vnO/itLGzzMEECMndw" +

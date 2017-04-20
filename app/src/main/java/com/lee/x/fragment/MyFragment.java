@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lee.x.R;
 import com.lee.x.utils.KeyPairGenUtil;
 import com.lee.x.utils.NewBase64;
+import com.lee.x.utils.RasUtil;
 
 /**
  * Created by android on 2017/4/11.
@@ -52,11 +53,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        KeyPairGenUtil keys = new KeyPairGenUtil();
         switch (v.getId()) {
 
             case R.id.btn:
 
-                KeyPairGenUtil keys = new KeyPairGenUtil();
 
                 String plainText = "dsdfdsfds分地方迪马股份大规模发电量圣诞发劳动模范的 ";
                 byte[] cipherData = new byte[0];
@@ -94,6 +95,38 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 tv.setText("结果:" + restr);
                 break;
             case R.id.btn1:
+
+
+                String publickey = keys.getPublicKeyString();
+                String privateKey = keys.getPriveteKeyString();
+
+               // System.out.println("---------------私钥签名过程------------------");
+                String content = "ihep_这是用于签名的原始数据";
+                String signstr = RasUtil.sign(content, privateKey);
+//                System.out.println("签名原串：" + content);
+//                System.out.println("签名串：" + signstr);
+
+
+                Log.e("my","签名原串：" + content);
+                Log.e("my","签名串：" + signstr);
+
+//                System.out.println("---------------公钥校验签名------------------");
+//                System.out.println("签名原串：" + content);
+//                System.out.println("签名串：" + signstr);
+
+
+                Log.e("my","签名原串：" + content);
+                Log.e("my","签名串：" + signstr);
+
+
+//                System.out.println("验签结果：" + RasUtil.doCheck(content, signstr, publickey));
+//                System.out.println();
+
+
+                Log.e("my","验签结果：" + RasUtil.doCheck(content, signstr, publickey));
+
+
+
 
                 break;
             case R.id.btn2:
