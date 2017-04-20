@@ -9,7 +9,7 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我的"
+        android:text=""
         android:textSize="20sp" />
 
 
@@ -17,13 +17,13 @@
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="创建表" />
+        android:text="加密" />
 
     <Button
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="插入" />
+        android:text="解密" />
 
     <Button
         android:id="@+id/btn2"
