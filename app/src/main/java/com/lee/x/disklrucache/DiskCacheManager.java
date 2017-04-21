@@ -24,8 +24,7 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 
 /**
- * Created by PandaQ on 2017/2/6.
- * email : 767807368@qq.com
+ *
  * 磁盘缓存工具类
  */
 
