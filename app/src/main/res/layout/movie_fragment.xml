@@ -13,25 +13,32 @@
 
     <TextView
         android:id="@+id/tv"
-        android:textSize="20sp"
-        android:text="aabbccddeeff"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="aabbccddeeff"
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/tv1"
-        android:textSize="20sp"
-        android:text="aabbccddeeff"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="aabbccddeeff"
+        android:textSize="20sp" />
 
     <TextView
-        android:autoLink="email|phone|web"
         android:id="@+id/tv2"
-        android:textSize="20sp"
-        android:text="aabbccddeeff17090408824"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:autoLink="email|phone|web"
+        android:text="aabbccddeeff17090408824"
+        android:textSize="20sp" />
 
+
+    <Button
+        android:id="@+id/btn_socket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="socket" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout

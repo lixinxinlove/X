@@ -9,10 +9,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lee.x.R;
 import com.lee.x.activity.EventFeedbackActivity;
+import com.lee.x.activity.SocketActivity;
 import com.lee.x.adapter.MovieAdapter;
 import com.lee.x.http.ApiManager;
 import com.lee.x.http.data.MovieResponse;
@@ -29,12 +32,16 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by android on 2017/4/12.
  */
-public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
 
     private TextView tv;
     private TextView tv1;
     private TextView tv2;
+
+
+    private Button btnSocket;
+
 
     private boolean isUserVisible = false;
 
@@ -81,6 +88,11 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
         tv1 = (TextView) rootView.findViewById(R.id.tv1);
         tv2 = (TextView) rootView.findViewById(R.id.tv2);
         refreshLayout.setOnRefreshListener(this);
+
+
+        btnSocket = (Button) rootView.findViewById(R.id.btn_socket);
+
+        btnSocket.setOnClickListener(this);
 
     }
 
@@ -154,5 +166,16 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
     public void onDestroy() {
         super.onDestroy();
         ApiManager.getInstence();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_socket:
+                startActivity(new Intent(getActivity(), SocketActivity.class));
+                break;
+            default:
+                break;
+        }
     }
 }

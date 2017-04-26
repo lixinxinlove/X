@@ -1,8 +1,6 @@
 package com.lee.x.activity;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.view.MenuItem;
 
 import com.lee.x.R;
@@ -48,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         //Palette palette=Palette.PaletteAsyncListener.
 
 
-
-
-
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         adapter = new MyFragmentAdapter(getSupportFragmentManager(), fragmentList);
@@ -75,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -103,8 +96,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
-
 }
