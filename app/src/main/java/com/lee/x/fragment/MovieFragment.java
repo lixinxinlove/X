@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.lee.x.R;
 import com.lee.x.activity.EventFeedbackActivity;
-import com.lee.x.activity.SocketActivity;
 import com.lee.x.adapter.MovieAdapter;
+import com.lee.x.demo.Main1Activity;
 import com.lee.x.http.ApiManager;
 import com.lee.x.http.data.MovieResponse;
 import com.lee.x.http.data.RetDataBean;
@@ -172,7 +172,7 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_socket:
-                startActivity(new Intent(getActivity(), SocketActivity.class));
+                startActivity(new Intent(getActivity(), Main1Activity.class));
                 break;
             default:
                 break;

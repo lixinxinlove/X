@@ -32,6 +32,18 @@
         <activity android:name=".activity.EventFeedbackActivity" />
         <activity android:name=".activity.WaveBezierActivity" />
         <activity android:name=".activity.SocketActivity"></activity>
+        <activity android:name=".demo.demo1.Demo1Activity"></activity>
+        <activity android:name=".demo.demo2.Demo2Activity"></activity>
+        <activity android:name=".demo.demo3.Demo3Activity"></activity>
+        <activity android:name=".demo.demo4.Demo4Activity"></activity>
+        <activity android:name=".demo.demo5.Demo5Activity"></activity>
+        <activity android:name=".demo.demo6.Demo6Activity"></activity>
+        <activity android:name=".demo.demo7.Demo7Activity"></activity>
+        <activity android:name=".demo.demo8.Demo8Activity"></activity>
+        <activity android:name=".demo.demo9.Demo9Activity"></activity>
+        <activity android:name=".demo.demo10.Demo10Activity"></activity>
+
+        <activity android:name=".demo.Main1Activity"></activity>
     </application>
 
 </manifest>

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.lee.x"
@@ -17,7 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+  //  sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+
+
+
+
 }
 
 dependencies {
