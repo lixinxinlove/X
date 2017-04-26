@@ -1,9 +1,12 @@
 package com.lee.x.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -30,6 +33,8 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 
     private TextView tv;
+    private TextView tv1;
+    private TextView tv2;
 
     private boolean isUserVisible = false;
 
@@ -45,6 +50,7 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -71,7 +77,9 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new MovieAdapter(data);
         recyclerView.setAdapter(adapter);
-
+        tv = (TextView) rootView.findViewById(R.id.tv);
+        tv1 = (TextView) rootView.findViewById(R.id.tv1);
+        tv2 = (TextView) rootView.findViewById(R.id.tv2);
         refreshLayout.setOnRefreshListener(this);
 
     }
@@ -93,10 +101,7 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
 
                         @Override
                         public void onNext(MovieResponse<RetDataBean> value) {
-                            for (int i = 0; i < value.getData().getList().size(); i++) {
-                                data.add(value.getData().getList().get(i).getMoreURL());
-                            }
-                            adapter.notifyDataSetChanged();
+
                         }
 
                         @Override
@@ -110,6 +115,24 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
                         }
                     });
         }
+
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chimelong_welcome_bg);
+        Palette.Builder builder = Palette.from(bitmap);
+        builder.generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+
+                Palette.Swatch s = palette.getVibrantSwatch();
+
+                tv.setTextColor(s.getRgb());
+                tv.setTextColor(palette.getDominantSwatch().getRgb());
+                tv.setTextColor(palette.getLightMutedSwatch().getRgb());
+
+
+            }
+        });
+
 
     }
 

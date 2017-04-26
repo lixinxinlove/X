@@ -1,5 +1,6 @@
 package com.lee.x.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lee.x.R;
+import com.lee.x.activity.WaveBezierActivity;
 import com.lee.x.utils.KeyPairGenUtil;
 import com.lee.x.utils.NewBase64;
 import com.lee.x.utils.RasUtil;
@@ -39,6 +41,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private Button btn1;
     private Button btn2;
     private Button btn3;
+    private Button btn4;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         btn1 = (Button) rootView.findViewById(R.id.btn1);
         btn2 = (Button) rootView.findViewById(R.id.btn2);
         btn3 = (Button) rootView.findViewById(R.id.btn3);
+        btn4 = (Button) rootView.findViewById(R.id.btn4);
     }
 
     @Override
@@ -67,6 +71,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
     }
 
     @Override
@@ -117,28 +122,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 String publickey = keys.getPublicKeyString();
                 String privateKey = keys.getPriveteKeyString();
 
-                // System.out.println("---------------私钥签名过程------------------");
                 String content = "ihep_这是用于签名的原始数据";
                 String signstr = RasUtil.sign(content, privateKey);
-//                System.out.println("签名原串：" + content);
-//                System.out.println("签名串：" + signstr);
-
-
-                Log.e("my", "签名原串：" + content);
-                Log.e("my", "签名串：" + signstr);
-
-//                System.out.println("---------------公钥校验签名------------------");
-//                System.out.println("签名原串：" + content);
-//                System.out.println("签名串：" + signstr);
 
 
                 Log.e("my", "签名原串：" + content);
                 Log.e("my", "签名串：" + signstr);
 
 
-//                System.out.println("验签结果：" + RasUtil.doCheck(content, signstr, publickey));
-//                System.out.println();
-
+                Log.e("my", "签名原串：" + content);
+                Log.e("my", "签名串：" + signstr);
 
                 Log.e("my", "验签结果：" + RasUtil.doCheck(content, signstr, publickey));
 
@@ -150,8 +143,41 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
             case R.id.btn3:
 
-                ras();
+
+                treeMap();
+
+                // ras();
                 break;
+
+            case R.id.btn4:
+                onWave();
+                break;
+        }
+
+    }
+
+    private void treeMap() {
+
+
+        TreeMap<String, String> tree = new TreeMap<>();
+
+        tree.put("c", "w");
+        tree.put("p", "d");
+        tree.put("l", "s");
+        tree.put("g", "l");
+        tree.put("e", "r");
+        tree.put("c", "c");
+        tree.put("a", "n");
+        tree.put("v", "j");
+        tree.put("k", "a");
+
+
+        Iterator<String> it = tree.keySet().iterator();
+
+        while (it.hasNext()) {
+            String key = it.next();
+            String value = tree.get(key);
+            Log.e("tree", key + ":" + value);
         }
 
     }
@@ -241,7 +267,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private String getRequestTokenRSA(TreeMap<String, String> tree) {
         StringBuffer secretBuffer = new StringBuffer();
         Iterator<String> it = tree.keySet().iterator();
-        //secretBuffer.append(Config.MD5_SECRET);
         while (it.hasNext()) {
             String key = it.next();
             String value = tree.get(key);
@@ -294,4 +319,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             }
         });
     }
+
+    public void onWave() {
+        startActivity(new Intent(getActivity(), WaveBezierActivity.class));
+    }
+
 }

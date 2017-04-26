@@ -20,9 +20,7 @@ import com.lee.x.R;
  */
 public class SendFragment extends BaseFragment {
 
-
     WebView webView;
-
     Button btn;
 
     @Override
@@ -40,7 +38,6 @@ public class SendFragment extends BaseFragment {
                 webView.loadUrl("javascript:lee1('lee+lee')");
             }
         });
-
 
         webView = (WebView) rootView.findViewById(R.id.wv);
         webView.getSettings().setJavaScriptEnabled(true); ///------- 设置javascript 可用
@@ -63,9 +60,6 @@ public class SendFragment extends BaseFragment {
         Log.e("Send", "UA1" + ua1);
 
 
-        //  Mozilla/5.0 (Linux; Android 4.4.4; HM 2A Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36
-
-
         String s = ua.substring(ua.indexOf("("), ua.indexOf(")"));
         String[] v = s.split(";");
         Log.e("Send", "s=" + s);
@@ -82,7 +76,7 @@ public class SendFragment extends BaseFragment {
             @Override
             public void onPageFinished(WebView wv, String arg1) {
                 super.onPageFinished(wv, arg1);
-                wv.loadUrl("javascript:displaymessage('v1.0.1')");
+               // wv.loadUrl("javascript:displaymessage('v1.0.1')");
 
             }
 

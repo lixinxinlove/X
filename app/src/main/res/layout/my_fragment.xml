@@ -38,4 +38,11 @@
         android:text="测试签名时间" />
 
 
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sin" />
+
+
 </LinearLayout>
