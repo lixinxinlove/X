@@ -33,4 +33,10 @@ public class App extends Application {
         }
         return 1;
     }
+
+
+    public static Context getAppContext() {
+        return mContext;
+    }
+
 }
