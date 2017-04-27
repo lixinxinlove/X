@@ -69,5 +69,11 @@
             android:layout_height="wrap_content"
             android:onClick="demo10"
             android:text="Demo10" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="demo11"
+            android:text="Demo11" />
     </LinearLayout>
 </ScrollView>

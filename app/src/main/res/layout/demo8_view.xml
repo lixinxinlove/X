@@ -3,7 +3,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-    <com.xys.animationartdemo.demo8.DotsView
+    <com.lee.x.demo.demo8.DotsView
         android:id="@+id/vDotsView"
         android:layout_width="200dp"
         android:layout_height="200dp"

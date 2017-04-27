@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.lee.x.R;
 import com.lee.x.activity.EventFeedbackActivity;
+import com.lee.x.activity.ToastActivity;
 import com.lee.x.adapter.MovieAdapter;
 import com.lee.x.demo.Main1Activity;
 import com.lee.x.http.ApiManager;
@@ -41,6 +42,7 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 
     private Button btnSocket;
+    private Button btnToast;
 
 
     private boolean isUserVisible = false;
@@ -91,8 +93,9 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 
         btnSocket = (Button) rootView.findViewById(R.id.btn_socket);
+        btnToast = (Button) rootView.findViewById(R.id.btn_toast);
 
-        btnSocket.setOnClickListener(this);
+        btnToast.setOnClickListener(this);
 
     }
 
@@ -173,6 +176,9 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
         switch (v.getId()) {
             case R.id.btn_socket:
                 startActivity(new Intent(getActivity(), Main1Activity.class));
+                break;
+            case R.id.btn_toast:
+                startActivity(new Intent(getActivity(), ToastActivity.class));
                 break;
             default:
                 break;

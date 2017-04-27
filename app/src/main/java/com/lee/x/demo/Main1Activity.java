@@ -8,6 +8,7 @@ import android.view.View;
 import com.lee.x.R;
 import com.lee.x.demo.demo1.Demo1Activity;
 import com.lee.x.demo.demo10.Demo10Activity;
+import com.lee.x.demo.demo11.Demo11Activity;
 import com.lee.x.demo.demo2.Demo2Activity;
 import com.lee.x.demo.demo3.Demo3Activity;
 import com.lee.x.demo.demo4.Demo4Activity;
@@ -66,4 +67,8 @@ public class Main1Activity extends AppCompatActivity {
         startActivity(new Intent(this, Demo10Activity.class));
     }
 
+
+    public void demo11(View view) {
+        startActivity(new Intent(this, Demo11Activity.class));
+    }
 }

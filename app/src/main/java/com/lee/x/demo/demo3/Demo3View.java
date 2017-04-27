@@ -25,7 +25,7 @@ public class Demo3View extends View {
     //默认第二个小球颜色
     private final static int DEFAULT_TWO_BALL_COLOR = Color.parseColor("#ffdf3e");
     //默认动画执行时间
-    private final static int DEFAULT_ANIMATOR_DURATION = 1000;
+    private final static int DEFAULT_ANIMATOR_DURATION = 5000;
     //画笔
     private Paint mPaint;
     //球的最大半径

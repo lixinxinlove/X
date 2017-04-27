@@ -62,7 +62,7 @@ public class Demo2View extends View {
         valueAnimator.setInterpolator(new AccelerateInterpolator(1.2f));
         valueAnimator.setRepeatCount(-1);
         valueAnimator.setRepeatMode(ValueAnimator.REVERSE);
-        valueAnimator.setDuration(500);
+        valueAnimator.setDuration(1500);
         valueAnimator.start();
     }
 

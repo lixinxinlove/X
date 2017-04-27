@@ -43,8 +43,12 @@ public class Demo7View extends View {
      */
     public void setReflesh(boolean isReflesh) {
         this.isReflesh = isReflesh;
-        //重绘
-        postInvalidate();
+
+        if (isReflesh) {
+            //重绘
+            postInvalidate();
+        }
+
     }
 
     /**
@@ -146,6 +150,11 @@ public class Demo7View extends View {
         // 与下下边界闭合
         path.lineTo(width, height);
         path.lineTo(0, height);
+
+        // path.lineTo(width,0);
+        //path.lineTo(0,0);
+
+
         // 进行闭合
         path.close();
         mCanvas.drawBitmap(bitmap, 0, 0, paint);// 画慕课网logo

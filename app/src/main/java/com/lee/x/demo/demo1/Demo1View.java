@@ -84,6 +84,7 @@ public class Demo1View extends RelativeLayout {
         mHeight = getMeasuredHeight();
     }
 
+
     public void addHeart() {
         ImageView imageView = new ImageView(getContext());
         //随机选一个
@@ -120,6 +121,7 @@ public class Demo1View extends RelativeLayout {
 
     private ValueAnimator getBezierValueAnimator(View target) {
         //初始化一个贝塞尔计算器- - 传入
+
         BezierEvaluator evaluator = new BezierEvaluator(getPointF(2), getPointF(1));
         //这里最好画个图 理解一下 传入了起点 和 终点
         ValueAnimator animator = ValueAnimator.ofObject(evaluator, new PointF((mWidth - dWidth) / 2, mHeight - dHeight), new PointF(random.nextInt(getWidth()), 0));
