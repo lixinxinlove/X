@@ -3,6 +3,7 @@ package com.lee.x.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -22,10 +23,15 @@ public class CalendarView extends View {
     private float cellHeight;
     //绘制日期
     private Paint mDayPaint;
+    //
+    private Paint mCirclePaint;
     //字体大小;
     private float textSize;
     //屏幕的宽
     private int width;
+    //高
+    private int height;
+
     //当前月一共有多少天
     private int countDay;
     //当前月一号是周几
@@ -54,6 +60,10 @@ public class CalendarView extends View {
         mDayPaint.setAntiAlias(true);
         mDayPaint.setColor(0xff000000);
 
+
+        mCirclePaint = new Paint();
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setColor(0xffff0000);
     }
 
     private void init() {
@@ -79,6 +89,10 @@ public class CalendarView extends View {
         super.onDraw(canvas);
 
         for (int i = 0; i < calenderDays.length; i++) {
+
+            if (calenderDays[i] == 28) {
+                drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
+            }
             drawDayText(canvas, i, mDayPaint, calenderDays[i] + "");
         }
     }
@@ -96,10 +110,31 @@ public class CalendarView extends View {
         int x = getXByIndex(index);
         int y = getYByIndex(index);
 
-        float startX = cellWidth * (x) + cellWidth * 0.5f;
-        float startY = cellHeight * (y) + cellHeight * 0.5f;
+
+        Rect bounds = new Rect();// 矩形
+        paint.getTextBounds(text, 0, text.length(), bounds);
+        int textWidth = bounds.width();
+        int textHeight = bounds.height();
+
+        float startX = cellWidth * x + cellWidth / 2 - textWidth / 2;
+        float startY = cellHeight * y + cellHeight / 2 + textHeight / 2;
         canvas.drawText(text, startX, startY, paint);
+
     }
+
+
+    private void drawCircle(Canvas canvas, int index, Paint paint, float radius) {
+        if (isIllegalIndex(index)) {
+            return;
+        }
+        int x = getXByIndex(index);
+        int y = getYByIndex(index);
+
+        float centreX = cellWidth * x + cellWidth / 2;
+        float centreY = cellHeight * y + cellHeight / 2;
+        canvas.drawCircle(centreX, centreY, radius, paint);
+    }
+
 
     /**
      * 判断无效的的数据
@@ -117,12 +152,13 @@ public class CalendarView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         width = getMeasuredWidth();
         cellWidth = width / 7;
         cellHeight = cellWidth * 0.7f;
         textSize = cellWidth * 0.3f;
         mDayPaint.setTextSize(textSize);
+        height = (int) (row * cellHeight);
+        setMeasuredDimension(width, height);
     }
 
 
