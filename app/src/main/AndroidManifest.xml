@@ -44,7 +44,8 @@
         <activity android:name=".demo.demo10.Demo10Activity" />
         <activity android:name=".demo.Main1Activity" />
         <activity android:name=".demo.demo11.Demo11Activity" />
-        <activity android:name=".activity.ToastActivity"></activity>
+        <activity android:name=".activity.ToastActivity" />
+        <activity android:name=".activity.CalenderActivity"></activity>
     </application>
 
 </manifest>

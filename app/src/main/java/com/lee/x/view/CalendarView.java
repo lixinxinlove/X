@@ -4,28 +4,38 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
 
 /**
- * Created by android on 2017/4/27.
+ * Created by lixinxin on 2017/4/27.
  * 时间日历
  */
 public class CalendarView extends View {
 
 
-    private String[] text = new String[]{"日", "一", "二", "三", "四", "五", "六"};
-
-    private int cellWidth = 30;
+    //单个日期的 宽
+    private float cellWidth;
+    //单个日期的 高
+    private float cellHeight;
+    //绘制日期
+    private Paint mDayPaint;
+    //字体大小;
+    private float textSize;
+    //屏幕的宽
+    private int width;
+    //当前月一共有多少天
+    private int countDay;
+    //当前月一号是周几
+    private int dayOfWeek;
+    //共需要多少行
+    private int row;
+    //放每一天
+    private int[] calenderDays = new int[42];
 
     private Calendar calendar;
-
-    private Paint mPaint;
-
-
-    private int width;
-
 
     public CalendarView(Context context) {
         this(context, null);
@@ -38,23 +48,71 @@ public class CalendarView extends View {
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(0x88000000);
-        mPaint.setTextSize(60);
+        init();
+
+        mDayPaint = new Paint();
+        mDayPaint.setAntiAlias(true);
+        mDayPaint.setColor(0xff000000);
 
     }
 
+    private void init() {
+        calendar = Calendar.getInstance();
+        //1.获取当月一共有多少天
+        countDay = getCurrentMonthDays();
+        //2.获取一号是周几
+        calendar = Calendar.getInstance();
+        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        row = getRow();
+
+        Log.e("Date", "本月有多少天--" + countDay);
+        Log.e("Date", "1号是周几--" + dayOfWeek);
+        Log.e("Date", "一个月的日历的高度--" + row);
+
+        for (int i = 0; i < countDay; i++) {
+            calenderDays[dayOfWeek + i] = i + 1;
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        for (int i = 0; i < 7; i++) {
-            canvas.drawText(text[i], cellWidth * i + cellWidth * 0.5f, 50, mPaint);
+        for (int i = 0; i < calenderDays.length; i++) {
+            drawDayText(canvas, i, mDayPaint, calenderDays[i] + "");
         }
     }
 
+    /**
+     * 绘制 日期
+     *
+     * @param canvas
+     * @param index
+     */
+    private void drawDayText(Canvas canvas, int index, Paint paint, String text) {
+        if (isIllegalIndex(index)) {
+            return;
+        }
+        int x = getXByIndex(index);
+        int y = getYByIndex(index);
+
+        float startX = cellWidth * (x) + cellWidth * 0.5f;
+        float startY = cellHeight * (y) + cellHeight * 0.5f;
+        canvas.drawText(text, startX, startY, paint);
+    }
+
+    /**
+     * 判断无效的的数据
+     *
+     * @param index
+     * @return
+     */
+    private boolean isIllegalIndex(int index) {
+        if (index < dayOfWeek || index > dayOfWeek + countDay - 1) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -62,5 +120,52 @@ public class CalendarView extends View {
 
         width = getMeasuredWidth();
         cellWidth = width / 7;
+        cellHeight = cellWidth * 0.7f;
+        textSize = cellWidth * 0.3f;
+        mDayPaint.setTextSize(textSize);
+    }
+
+
+    /**
+     * 计算控件的高度  一共有几行
+     */
+    private int getRow() {
+        int h = (countDay + dayOfWeek) % 7;
+        int c = (countDay + dayOfWeek) / 7;
+        if (h > 0) {
+            c++;
+        }
+        return c;
+    }
+
+
+    /**
+     * 获取当月天数
+     */
+    private int getCurrentMonthDays() {
+        calendar.set(Calendar.DATE, 1);
+        calendar.roll(Calendar.DATE, -1);
+        int days = calendar.get(Calendar.DAY_OF_MONTH);
+        return days;
+    }
+
+    /**
+     * 获取x 坐标
+     *
+     * @param i
+     * @return
+     */
+    private int getXByIndex(int i) {
+        return i % 7;
+    }
+
+    /**
+     * 获取Y 坐标
+     *
+     * @param i
+     * @return
+     */
+    private int getYByIndex(int i) {
+        return i / 7;
     }
 }

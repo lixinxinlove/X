@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lee.x.R;
+import com.lee.x.activity.CalenderActivity;
 import com.lee.x.activity.EventFeedbackActivity;
-import com.lee.x.activity.ToastActivity;
 import com.lee.x.adapter.MovieAdapter;
 import com.lee.x.demo.Main1Activity;
 import com.lee.x.http.ApiManager;
@@ -178,7 +178,7 @@ public class MovieFragment extends BaseFragment implements SwipeRefreshLayout.On
                 startActivity(new Intent(getActivity(), Main1Activity.class));
                 break;
             case R.id.btn_toast:
-                startActivity(new Intent(getActivity(), ToastActivity.class));
+                startActivity(new Intent(getActivity(), CalenderActivity.class));
                 break;
             default:
                 break;
