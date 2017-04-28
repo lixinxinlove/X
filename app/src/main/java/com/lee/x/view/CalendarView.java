@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Calendar;
@@ -14,7 +15,14 @@ import java.util.Calendar;
  * Created by lixinxin on 2017/4/27.
  * 时间日历
  */
-public class CalendarView extends View {
+public class CalendarView extends View implements View.OnTouchListener {
+
+
+    private int selectedYear;
+
+    private int selectedMonth;
+
+    private int selectedDay;
 
 
     //单个日期的 宽
@@ -23,7 +31,7 @@ public class CalendarView extends View {
     private float cellHeight;
     //绘制日期
     private Paint mDayPaint;
-    //
+    //绘制今天
     private Paint mCirclePaint;
     //字体大小;
     private float textSize;
@@ -56,6 +64,8 @@ public class CalendarView extends View {
 
         init();
 
+        setOnTouchListener(this);
+
         mDayPaint = new Paint();
         mDayPaint.setAntiAlias(true);
         mDayPaint.setColor(0xff000000);
@@ -68,6 +78,9 @@ public class CalendarView extends View {
 
     private void init() {
         calendar = Calendar.getInstance();
+
+        selectedDay = calendar.get(Calendar.DATE);
+
         //1.获取当月一共有多少天
         countDay = getCurrentMonthDays();
         //2.获取一号是周几
@@ -90,7 +103,7 @@ public class CalendarView extends View {
 
         for (int i = 0; i < calenderDays.length; i++) {
 
-            if (calenderDays[i] == 28) {
+            if (calenderDays[i] == selectedDay) {
                 drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
             }
             drawDayText(canvas, i, mDayPaint, calenderDays[i] + "");
@@ -203,5 +216,48 @@ public class CalendarView extends View {
      */
     private int getYByIndex(int i) {
         return i / 7;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        float x = event.getX();
+        float y = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                int i = getIndexByCoordinate(x, y);
+                if (i < dayOfWeek || i > dayOfWeek + countDay) {
+                    Log.e("Date", "点击的是" + i);
+                } else {
+                    selectedDay = calenderDays[i];
+                    invalidate();
+                }
+                Log.e("Date", "点击的是" + i);
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+
+                break;
+            case MotionEvent.ACTION_UP:
+
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * 获取点击对应的日期
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    private int getIndexByCoordinate(float x, float y) {
+        int m = (int) (x / cellWidth);
+        int n = (int) (y / cellHeight);
+        return n * 7 + m;
     }
 }
