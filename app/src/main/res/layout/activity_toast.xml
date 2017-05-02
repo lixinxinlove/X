@@ -11,10 +11,10 @@
         android:text="弹出个东西" />
 
 
-
     <com.lee.x.view.CalendarView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

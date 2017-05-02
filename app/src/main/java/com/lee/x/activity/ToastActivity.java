@@ -10,17 +10,37 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lee.x.R;
+import com.lee.x._interface.ICalendrViewCallback;
 import com.lee.x.fragment.MyDialogFragment;
+import com.lee.x.view.CalendarView;
 
 public class ToastActivity extends AppCompatActivity {
 
 
     MyDialogFragment dialogFragment;
 
+
+    private CalendarView calendarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toast);
+
+
+        calendarView = (CalendarView) findViewById(R.id.cv);
+
+        calendarView.setICalendrViewCallback(new ICalendrViewCallback() {
+            @Override
+            public void onClickeDay(int date) {
+
+            }
+
+            @Override
+            public void onToday(int date) {
+
+            }
+        });
 
         dialogFragment = new MyDialogFragment();
 

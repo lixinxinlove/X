@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.lee.x._interface.ICalendrViewCallback;
+
 import java.util.Calendar;
 
 /**
@@ -22,24 +24,25 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     private int selectedMonth;
 
+    private int todayDate;
+
     private int selectedDay;
-
-
     //单个日期的 宽
     private float cellWidth;
     //单个日期的 高
     private float cellHeight;
     //绘制日期
     private Paint mDayPaint;
-    //绘制今天
+    //绘制点击的日期
     private Paint mCirclePaint;
-    //字体大小;
+    //绘制今天背景
+    private Paint mTodayPaint;
+    //字体大小
     private float textSize;
     //屏幕的宽
     private int width;
     //高
     private int height;
-
     //当前月一共有多少天
     private int countDay;
     //当前月一号是周几
@@ -74,12 +77,22 @@ public class CalendarView extends View implements View.OnTouchListener {
         mCirclePaint = new Paint();
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setColor(0xffff0000);
+
+
+        mTodayPaint = new Paint();
+        mTodayPaint.setAntiAlias(true);
+        mTodayPaint.setColor(0xffff0000);
+        mTodayPaint.setStrokeWidth(3);
+        mTodayPaint.setStyle(Paint.Style.STROKE);
+
     }
 
     private void init() {
         calendar = Calendar.getInstance();
 
         selectedDay = calendar.get(Calendar.DATE);
+
+        todayDate = calendar.get(Calendar.DATE);
 
         //1.获取当月一共有多少天
         countDay = getCurrentMonthDays();
@@ -106,6 +119,13 @@ public class CalendarView extends View implements View.OnTouchListener {
             if (calenderDays[i] == selectedDay) {
                 drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
             }
+
+
+            if (todayDate == calenderDays[i]) {
+                drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.48));
+            }
+
+
             drawDayText(canvas, i, mDayPaint, calenderDays[i] + "");
         }
     }
@@ -132,7 +152,6 @@ public class CalendarView extends View implements View.OnTouchListener {
         float startX = cellWidth * x + cellWidth / 2 - textWidth / 2;
         float startY = cellHeight * y + cellHeight / 2 + textHeight / 2;
         canvas.drawText(text, startX, startY, paint);
-
     }
 
 
@@ -147,7 +166,6 @@ public class CalendarView extends View implements View.OnTouchListener {
         float centreY = cellHeight * y + cellHeight / 2;
         canvas.drawCircle(centreX, centreY, radius, paint);
     }
-
 
     /**
      * 判断无效的的数据
@@ -232,8 +250,12 @@ public class CalendarView extends View implements View.OnTouchListener {
                 } else {
                     selectedDay = calenderDays[i];
                     invalidate();
+                    if (callback != null) {
+                        callback.onClickeDay(selectedDay);
+                    }
                 }
                 Log.e("Date", "点击的是" + i);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -259,5 +281,20 @@ public class CalendarView extends View implements View.OnTouchListener {
         int m = (int) (x / cellWidth);
         int n = (int) (y / cellHeight);
         return n * 7 + m;
+    }
+
+
+    //=======================接口========================================
+
+
+    private ICalendrViewCallback callback;
+
+    public void setICalendrViewCallback(ICalendrViewCallback callback) {
+        this.callback = callback;
+
+        if (callback != null) {
+            callback.onToday(selectedDay);
+        }
+
     }
 }
