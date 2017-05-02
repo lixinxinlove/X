@@ -98,7 +98,10 @@ public class CalendarView extends View implements View.OnTouchListener {
         countDay = getCurrentMonthDays();
         //2.获取一号是周几
         calendar = Calendar.getInstance();
-        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.set(calendar.DAY_OF_MONTH, 1);  //设置为一号
+        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+
+        calendar = Calendar.getInstance();
         row = getRow();
 
         Log.e("Date", "本月有多少天--" + countDay);
@@ -245,7 +248,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 int i = getIndexByCoordinate(x, y);
-                if (i < dayOfWeek || i > dayOfWeek + countDay) {
+                if (i < dayOfWeek || i >= dayOfWeek + countDay) {
                     Log.e("Date", "点击的是" + i);
                 } else {
                     selectedDay = calenderDays[i];
