@@ -53,6 +53,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] calenderDays = new int[42];
 
     private Calendar calendar;
+    private Calendar tempCalendar;
 
     public CalendarView(Context context) {
         this(context, null);
@@ -89,6 +90,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     private void init() {
         calendar = Calendar.getInstance();
+        tempCalendar = Calendar.getInstance();
 
         selectedDay = calendar.get(Calendar.DATE);
 
@@ -123,13 +125,11 @@ public class CalendarView extends View implements View.OnTouchListener {
                 drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
             }
 
-
             if (todayDate == calenderDays[i]) {
                 drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.48));
             }
 
-
-            drawDayText(canvas, i, mDayPaint, calenderDays[i] + "");
+            drawDayText(canvas, i, mDayPaint, calenderDays[i]);
         }
     }
 
@@ -139,13 +139,15 @@ public class CalendarView extends View implements View.OnTouchListener {
      * @param canvas
      * @param index
      */
-    private void drawDayText(Canvas canvas, int index, Paint paint, String text) {
+    private void drawDayText(Canvas canvas, int index, Paint paint, int t) {
         if (isIllegalIndex(index)) {
             return;
         }
         int x = getXByIndex(index);
         int y = getYByIndex(index);
 
+
+        String text = t + "";
 
         Rect bounds = new Rect();// 矩形
         paint.getTextBounds(text, 0, text.length(), bounds);
@@ -154,6 +156,16 @@ public class CalendarView extends View implements View.OnTouchListener {
 
         float startX = cellWidth * x + cellWidth / 2 - textWidth / 2;
         float startY = cellHeight * y + cellHeight / 2 + textHeight / 2;
+
+
+        tempCalendar.set(calendar.DAY_OF_MONTH, t);  //设置为一号
+
+        if (tempCalendar.get(Calendar.DAY_OF_WEEK) == 1 || tempCalendar.get(Calendar.DAY_OF_WEEK) == 7) {
+            paint.setColor(0xff0000ff);
+        } else {
+            paint.setColor(0xff000000);
+        }
+
         canvas.drawText(text, startX, startY, paint);
     }
 
