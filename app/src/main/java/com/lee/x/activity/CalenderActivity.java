@@ -9,6 +9,8 @@ import com.lee.x.R;
 import com.lee.x._interface.ICalendrViewCallback;
 import com.lee.x.view.CalendarView;
 
+import java.util.Date;
+
 public class CalenderActivity extends AppCompatActivity {
 
 
@@ -24,6 +26,9 @@ public class CalenderActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.tv);
         calendarView = (CalendarView) findViewById(R.id.cv);
+
+
+        calendarView.setmDate(new Date("2017/4/4"));
 
         calendarView.setICalendrViewCallback(new ICalendrViewCallback() {
             @Override

@@ -12,6 +12,7 @@ import android.view.View;
 import com.lee.x._interface.ICalendrViewCallback;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by lixinxin on 2017/4/27.
@@ -20,13 +21,15 @@ import java.util.Calendar;
 public class CalendarView extends View implements View.OnTouchListener {
 
 
+    private Date mDate;
+
     private int selectedYear;
 
     private int selectedMonth;
 
     private int todayDate;
 
-    private int selectedDay;
+    private int selectedDay = -1;
     //单个日期的 宽
     private float cellWidth;
     //单个日期的 高
@@ -39,6 +42,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     private Paint mTodayPaint;
     //小文本
     private Paint mSmallTextPaint;
+    //矩形
+    private Paint mRectanglePaint;
 
     //TODO
     private Paint mRedPaint;
@@ -58,6 +63,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] calenderDays = new int[42];
 
     private Calendar calendar;
+    private Calendar mCalendar;
     private Calendar tempCalendar;
 
     public CalendarView(Context context) {
@@ -71,7 +77,6 @@ public class CalendarView extends View implements View.OnTouchListener {
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init();
 
         setOnTouchListener(this);
 
@@ -86,7 +91,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         mTodayPaint = new Paint();
         mTodayPaint.setAntiAlias(true);
         mTodayPaint.setColor(0xffff0000);
-        mTodayPaint.setStrokeWidth(3);
+        mTodayPaint.setStrokeWidth(1);
         mTodayPaint.setStyle(Paint.Style.STROKE);
 
 
@@ -102,31 +107,42 @@ public class CalendarView extends View implements View.OnTouchListener {
         mRedPaint.setStrokeWidth(1);
         mRedPaint.setStyle(Paint.Style.STROKE);
 
+        mRectanglePaint = new Paint();
+        mRectanglePaint.setAntiAlias(true);
+        mRectanglePaint.setColor(0xffFFC2B8);
+        mRectanglePaint.setStyle(Paint.Style.FILL);
+
 
     }
 
     private void init() {
-        calendar = Calendar.getInstance();
-        tempCalendar = Calendar.getInstance();
 
-        selectedDay = calendar.get(Calendar.DATE);
+        //Date date = new Date("2017/04/04");
+
+        calendar = Calendar.getInstance();
+        calendar.setTime(mDate);
+        mCalendar = Calendar.getInstance();
+        mCalendar.setTime(mDate);
+        tempCalendar = Calendar.getInstance();
+        tempCalendar.setTime(mDate);
+
 
         todayDate = calendar.get(Calendar.DATE);
 
         //1.获取当月一共有多少天
         countDay = getCurrentMonthDays();
         //2.获取一号是周几
-        calendar = Calendar.getInstance();
+        // calendar = Calendar.getInstance();
+        calendar.setTime(mDate);
         calendar.set(calendar.DAY_OF_MONTH, 1);  //设置为一号
         dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-        calendar = Calendar.getInstance();
+        // calendar = Calendar.getInstance();
+        calendar.setTime(mDate);
         row = getRow();
 
         Log.e("Date", "本月有多少天--" + countDay);
         Log.e("Date", "1号是周几--" + dayOfWeek);
         Log.e("Date", "一个月的日历的高度--" + row);
-
         /**
          * 初始化 一个月的数据
          */
@@ -145,6 +161,33 @@ public class CalendarView extends View implements View.OnTouchListener {
         this.calendar = calendar;
     }
 
+    /**
+     * 设置一个时间
+     *
+     * @param date
+     */
+    public void setmDate(Date date) {
+        this.mDate = date;
+        init();
+    }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        width = getMeasuredWidth();
+        cellWidth = width / 7;
+        cellHeight = cellWidth;
+        // cellHeight = cellWidth * 0.7f;
+        textSize = cellWidth * 0.3f;
+        mDayPaint.setTextSize(textSize);
+        height = (int) (row * cellHeight);
+
+        mSmallTextPaint.setTextSize(cellHeight * 0.2f);
+
+        setMeasuredDimension(width, height);
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -153,19 +196,19 @@ public class CalendarView extends View implements View.OnTouchListener {
         for (int i = 0; i < calenderDays.length; i++) {
 
             if (calenderDays[i] == selectedDay) {
-                drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
+                //drawCircle(canvas, i, mCirclePaint, cellHeight / 2);
+                drawRectangle(canvas, i);
             }
 
             if (todayDate == calenderDays[i]) {
-                drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.48));
+                drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.5));
             }
 
             drawDayText(canvas, i, mDayPaint, calenderDays[i]);
 
-            drawSmallText(canvas, i, mSmallTextPaint, calenderDays[i]);
+            // drawSmallText(canvas, i, mSmallTextPaint, calenderDays[i]);
 
-
-            drawCoordinate(canvas, i);
+            // drawCoordinate(canvas, i);
 
         }
     }
@@ -234,7 +277,7 @@ public class CalendarView extends View implements View.OnTouchListener {
             paint.setColor(0xffff0000);
             text = "休";
         } else {
-            paint.setColor(0xff0000ff);
+            paint.setColor(0xffca71fa);
             text = "班";
         }
 
@@ -252,6 +295,25 @@ public class CalendarView extends View implements View.OnTouchListener {
         float centreX = cellWidth * x + cellWidth / 2;
         float centreY = cellHeight * y + cellHeight / 2;
         canvas.drawCircle(centreX, centreY, radius, paint);
+    }
+
+
+    /**
+     * 绘制矩形背景
+     *
+     * @param canvas
+     * @param index
+     */
+    private void drawRectangle(Canvas canvas, int index) {
+        if (isIllegalIndex(index)) {
+            return;
+        }
+        int x = getXByIndex(index);
+        int y = getYByIndex(index);
+
+        float startX = cellWidth * x;
+        float startY = cellHeight * y;
+        canvas.drawRect(startX, startY, startX + cellWidth, startY + cellHeight, mRectanglePaint);
     }
 
 
@@ -286,23 +348,6 @@ public class CalendarView extends View implements View.OnTouchListener {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        width = getMeasuredWidth();
-        cellWidth = width / 7;
-        cellHeight = cellWidth * 0.7f;
-        textSize = cellWidth * 0.3f;
-        mDayPaint.setTextSize(textSize);
-        height = (int) (row * cellHeight);
-
-
-        mSmallTextPaint.setTextSize(cellHeight * 0.3f);
-
-
-        setMeasuredDimension(width, height);
     }
 
 
