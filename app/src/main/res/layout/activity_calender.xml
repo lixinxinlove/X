@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:orientation="vertical">
 
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -61,11 +61,28 @@
             android:text="六" />
     </LinearLayout>
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
     <com.lee.x.view.CalendarView
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
     <TextView
         android:id="@+id/tv"

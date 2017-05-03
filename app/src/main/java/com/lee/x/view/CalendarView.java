@@ -201,14 +201,14 @@ public class CalendarView extends View implements View.OnTouchListener {
             }
 
             if (todayDate == calenderDays[i]) {
-                drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.5));
+                drawCircle(canvas, i, mTodayPaint, (float) (cellHeight * 0.4));
             }
 
             drawDayText(canvas, i, mDayPaint, calenderDays[i]);
 
-            // drawSmallText(canvas, i, mSmallTextPaint, calenderDays[i]);
+            drawSmallText(canvas, i, mSmallTextPaint, calenderDays[i]);
 
-            // drawCoordinate(canvas, i);
+            drawCoordinate(canvas, i);
 
         }
     }
@@ -402,24 +402,35 @@ public class CalendarView extends View implements View.OnTouchListener {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                int i = getIndexByCoordinate(x, y);
-                if (i < dayOfWeek || i >= dayOfWeek + countDay) {
-                    Log.e("Date", "点击的是" + i);
-                } else {
-                    selectedDay = calenderDays[i];
-                    invalidate();
-                    if (callback != null) {
-                        callback.onClickeDay(selectedDay);
-                    }
-                }
-                Log.e("Date", "点击的是" + i);
 
                 break;
 
             case MotionEvent.ACTION_MOVE:
 
+
                 break;
             case MotionEvent.ACTION_UP:
+
+                float x1 = event.getX();
+                float y1 = event.getY();
+
+                if (Math.abs(x1 - x) > 10 || Math.abs(y1 - y) > 10) {
+
+                } else {
+
+                    int i = getIndexByCoordinate(x, y);
+                    if (i < dayOfWeek || i >= dayOfWeek + countDay) {
+                        Log.e("Date", "点击的是" + i);
+                    } else {
+                        selectedDay = calenderDays[i];
+                        invalidate();
+                        if (callback != null) {
+                            callback.onClickeDay(selectedDay);
+                        }
+                    }
+                    Log.e("Date", "点击的是" + i);
+
+                }
 
                 break;
             default:
@@ -455,4 +466,5 @@ public class CalendarView extends View implements View.OnTouchListener {
         }
 
     }
+
 }
