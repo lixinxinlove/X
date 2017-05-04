@@ -32,9 +32,10 @@ public class CalenderActivity extends AppCompatActivity {
         rootView = (LinearLayout) findViewById(R.id.root_view);
         rootView.removeAllViews();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             calendar = Calendar.getInstance();
             CalendarView cv = new CalendarView(this);
+            cv.setBackgroundColor(0xffffffff);
             calendar.add(Calendar.MONTH, i);
             cv.setCalendar(calendar);
             rootView.addView(cv);
