@@ -119,25 +119,25 @@ public class CalendarView extends View implements View.OnTouchListener {
 
         //Date date = new Date("2017/04/04");
 
+
+        //mCalendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+
         calendar = Calendar.getInstance();
-        calendar.setTime(mDate);
-        mCalendar = Calendar.getInstance();
-        mCalendar.setTime(mDate);
+        calendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE));
+
         tempCalendar = Calendar.getInstance();
-        tempCalendar.setTime(mDate);
+        tempCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE));
 
-
+        //今天的日期
         todayDate = calendar.get(Calendar.DATE);
-
         //1.获取当月一共有多少天
         countDay = getCurrentMonthDays();
         //2.获取一号是周几
         // calendar = Calendar.getInstance();
-        calendar.setTime(mDate);
+        calendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE));
         calendar.set(calendar.DAY_OF_MONTH, 1);  //设置为一号
         dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        // calendar = Calendar.getInstance();
-        calendar.setTime(mDate);
+        calendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE));
         row = getRow();
 
         Log.e("Date", "本月有多少天--" + countDay);
@@ -158,7 +158,9 @@ public class CalendarView extends View implements View.OnTouchListener {
      * @param calendar
      */
     public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+        //保存用户设置的日期
+        this.mCalendar = calendar;
+        init();
     }
 
     /**
@@ -415,9 +417,8 @@ public class CalendarView extends View implements View.OnTouchListener {
                 float y1 = event.getY();
 
                 if (Math.abs(x1 - x) > 10 || Math.abs(y1 - y) > 10) {
-
+                    // 无效的事件
                 } else {
-
                     int i = getIndexByCoordinate(x, y);
                     if (i < dayOfWeek || i >= dayOfWeek + countDay) {
                         Log.e("Date", "点击的是" + i);
@@ -429,7 +430,6 @@ public class CalendarView extends View implements View.OnTouchListener {
                         }
                     }
                     Log.e("Date", "点击的是" + i);
-
                 }
 
                 break;

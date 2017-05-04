@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.lee.x.R;
 import com.lee.x.view.CalendarView;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class CalenderActivity extends AppCompatActivity {
 
@@ -17,11 +17,9 @@ public class CalenderActivity extends AppCompatActivity {
 
     private TextView textView;
 
-
     private LinearLayout rootView;
 
-
-    private Date date;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,34 +29,15 @@ public class CalenderActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.tv);
         calendarView = (CalendarView) findViewById(R.id.cv);
 
-
         rootView = (LinearLayout) findViewById(R.id.root_view);
-
-
-        date = new Date();
         rootView.removeAllViews();
+
         for (int i = 0; i < 5; i++) {
+            calendar = Calendar.getInstance();
             CalendarView cv = new CalendarView(this);
-           // cv.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            date.setMonth(date.getMonth() + i);
-            cv.setmDate(date);
+            calendar.add(Calendar.MONTH, i);
+            cv.setCalendar(calendar);
             rootView.addView(cv);
         }
-
-
-//        calendarView.setmDate(new Date("2017/4/4"));
-//
-//        calendarView.setICalendrViewCallback(new ICalendrViewCallback() {
-//            @Override
-//            public void onClickeDay(int date) {
-//                Toast.makeText(CalenderActivity.this, "点击的是" + date + "号", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onToday(int date) {
-//                textView.setText("今天是" + date + "号");
-//            }
-//        });
-
     }
 }
