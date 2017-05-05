@@ -29,9 +29,10 @@
         android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autoLink="email|phone|web"
         android:text="aabbccddeeff17090408824"
         android:textSize="20sp" />
+
+    <!--   android:autoLink="email|phone|web"-->
 
 
     <Button
@@ -45,6 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Toast" />
+
+
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout

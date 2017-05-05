@@ -206,7 +206,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-       // canvas.drawB
+        // canvas.drawB
 
         drawHeadText(canvas);
         Calendar c = Calendar.getInstance();
@@ -221,7 +221,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
             drawDayText(canvas, i, mDayPaint, calenderDays[i]);
             //drawSmallText(canvas, i, mSmallTextPaint, calenderDays[i]);
-            drawCoordinate(canvas, i);
+            //drawCoordinate(canvas, i);
         }
     }
 
